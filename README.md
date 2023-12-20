@@ -14,12 +14,14 @@ from tensorflow import keras
 from tensorflow.keras import layers
 ``` 
 ## Load data
+- The script loads data from a CSV file named ‘data.csv’ using Pandas.
 ``` python
 data = pd.read_csv('data.csv')
 ```
-The dataset used is a climate dataset with features such as temperature, wind speed and precipitation.
-
 ## Preprocessing
+- Extracts relevant columns for training and testing data, filtering based on the year.
+- Computes the mean and standard deviation of the training data and standardizes both training and testing data.
+- Defines n_steps (sequence length), batch_size, and calculates the number of samples for training and testing.
 ``` pytohn
 train_data = data[(data['Date.Year'] >= 2016) & (data['Date.Year'] <= 2017)][['Date.Month', 'Data.Temperature.Max Temp', 'Data.Wind.Speed', 'Data.Precipitation']]
 test_data = data[(data['Date.Year'] == 2017)][['Date.Month', 'Data.Temperature.Max Temp', 'Data.Wind.Speed', 'Data.Precipitation']]
@@ -32,9 +34,8 @@ batch_size = 64
 train_samples = len(train_data) - n_steps
 test_samples = len(test_data) - n_steps
 ```
-The data is divided into train and test sets and normalized before feeding to the model.
-
 ## Create data generator
+- Uses TensorFlow’s timeseries_dataset_from_array to create sequences of input features and target labels for training and testing.
 ``` python
 train_data_gen = keras.preprocessing.timeseries_dataset_from_array(
     train_data[['Date.Month', 'Data.Temperature.Max Temp', 'Data.Wind.Speed']].values,
@@ -48,9 +49,8 @@ test_data_gen = keras.preprocessing.timeseries_dataset_from_array(
     sequence_length=n_steps,
     batch_size=batch_size
 ```
-A data generator is created for creating batches of sequence data for training and testing purposes. 
-
 ## Define model
+- A simple sequential model is defined using Keras with an input layer, an LSTM layer with 64 units, and a dense output layer.
 ``` python
 model = keras.Sequential([
     keras.layers.Input(shape=(n_steps, len(train_data.columns) - 1)),
@@ -58,21 +58,19 @@ model = keras.Sequential([
     keras.layers.Dense(1)
 ])
 ```
-The LSTM model is defined with one LSTM layer and one dense output layer.
-
 ## Compile model
+- Compiles the model using mean squared error (MSE) as the loss function, Adam optimizer with a specified learning rate, and Mean Absolute Error (MAE) as a metric.
 ``` python
 model.compile(loss='mse', optimizer=keras.optimizers.Adam(learning_rate=0.01), metrics=['mae'])
 ```
-The model is compiled with mean squared error as the loss function and Adam optimizer with a learning rate of 0.01.
-
 ## Train model
+- Trains the model using the training data generator, specifying the number of epochs and batch size.
 ``` python
 model.fit(train_data_gen, epochs=100, batch_size=batch_size)
 ```
-The model is then trained for 100 epochs using the data generator.
-
 ## Test model and print results
+- Prepares the test data for prediction and uses the trained model to predict precipitation values.
+- Calculates and prints Mean Squared Error (MSE) and Mean Absolute Error (MAE) between the true and predicted precipitation values.
 ``` python
 X_test = np.array([test_data.values[i:i+n_steps,:-1] for i in range(test_samples)])
 y_true = test_data[n_steps:]['Data.Precipitation'].values.reshape(-1, 1)
@@ -83,9 +81,8 @@ mae = tf.keras.losses.mean_absolute_error(y_true, y_pred).numpy()
 print('MSE: ', mse)
 print('MAE: ', mae)
 ```
-The model is tested on the test data and the mean squared error and mean absolute error are calculated and printed. 
-
 ## Plot true vs predicted precipitation values
+Plots the true vs predicted precipitation values using Matplotlib.
 ``` python
 plt.plot(y_true, label='True')
 plt.plot(y_pred, label='Predicted')
@@ -94,6 +91,8 @@ plt.ylabel('Precipitation')
 plt.legend()
 plt.show()
 ```
-A plot is also shown to visualize the predicted precipitation values compared to the true values.
-
+##The result
 ![Result](https://github.com/Sayomphon/Weather-forecast-model/blob/main/Prediction%20result.PNG)
+##Conclusion
+This script essentially demonstrates a basic time series forecasting model using an LSTM neural network for predicting precipitation based on historical weather data.
+
