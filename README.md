@@ -1,7 +1,7 @@
 # Weather-forecast-model
 
 
-## Deeplearning framework and library
+## Import framework and library
 ``` python
 import pandas as pd
 import numpy as np
