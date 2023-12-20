@@ -1,7 +1,10 @@
 # Weather-forecast-model
-
-
-## Import framework and library
+This code is a Python script using the TensorFlow and Pandas libraries to build, train, and evaluate a simple Long Short-Term Memory (LSTM) neural network for predicting precipitation based on temperature, wind speed, and month data.
+## Import libraries
+•	pandas: For data manipulation and analysis.
+•	numpy: For numerical operations.
+•	tensorflow: An open-source machine learning framework.
+•	matplotlib.pyplot: For data visualization.
 ``` python
 import pandas as pd
 import numpy as np
@@ -9,9 +12,7 @@ import tensorflow as tf
 import matplotlib.pyplot as plt
 from tensorflow import keras
 from tensorflow.keras import layers
-```
-This code is an implementation of a time series prediction model using the LSTM algorithm in TensorFlow and Keras. 
-
+``` 
 ## Load data
 ``` python
 data = pd.read_csv('data.csv')
