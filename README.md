@@ -94,3 +94,5 @@ plt.legend()
 plt.show()
 ```
 A plot is also shown to visualize the predicted precipitation values compared to the true values.
+
+Prediction result.PNG
