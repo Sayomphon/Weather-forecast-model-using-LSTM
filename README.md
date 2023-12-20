@@ -95,4 +95,4 @@ plt.show()
 ```
 A plot is also shown to visualize the predicted precipitation values compared to the true values.
 
-![Result](Prediction result.PNG)
+![Result](https://github.com/Sayomphon/Weather-forecast-model/blob/main/Prediction%20result.PNG)
