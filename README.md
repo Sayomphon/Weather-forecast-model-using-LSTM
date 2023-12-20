@@ -91,8 +91,8 @@ plt.ylabel('Precipitation')
 plt.legend()
 plt.show()
 ```
-##The result
+## The result
 ![Result](https://github.com/Sayomphon/Weather-forecast-model/blob/main/Prediction%20result.PNG)
-##Conclusion
+## Conclusion
 This script essentially demonstrates a basic time series forecasting model using an LSTM neural network for predicting precipitation based on historical weather data.
 
