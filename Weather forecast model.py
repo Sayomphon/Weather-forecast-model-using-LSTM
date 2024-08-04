@@ -4,6 +4,7 @@ import tensorflow as tf
 import matplotlib.pyplot as plt
 from tensorflow import keras
 from tensorflow.keras import layers
+from tensorflow.keras.losses import MeanSquaredError
 
 # Load data
 data = pd.read_csv('data.csv')
@@ -53,8 +54,8 @@ y_true = test_data[n_steps:]['Data.Precipitation'].values.reshape(-1, 1)
 y_pred = model.predict(X_test)
 
 # Print results
-mse = tf.keras.losses.mean_squared_error(y_true, y_pred).numpy()
-mae = tf.keras.losses.mean_absolute_error(y_true, y_pred).numpy()
+mse = tf.keras.losses.MeanSquaredError()(y_true, y_pred).numpy()
+mae = tf.keras.losses.MeanAbsoluteError()(y_true, y_pred).numpy()
 print('MSE: ', mse)
 print('MAE: ', mae)
 
