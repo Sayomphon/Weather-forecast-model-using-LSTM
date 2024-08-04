@@ -15,6 +15,7 @@ import matplotlib.pyplot as plt
 from tensorflow import keras
 from tensorflow.keras import layers
 from tensorflow.keras.losses import MeanSquaredError
+from sklearn.metrics import r2_score
 ``` 
 ## Section 2: Load data
 - The script loads data from a CSV file named ‘data.csv’ using Pandas.
@@ -82,8 +83,11 @@ y_pred = model.predict(X_test)
 
 mse = tf.keras.losses.MeanSquaredError()(y_true, y_pred).numpy()
 mae = tf.keras.losses.MeanAbsoluteError()(y_true, y_pred).numpy()
+r2 = r2_score(y_true, y_pred)
+
 print('MSE: ', mse)
 print('MAE: ', mae)
+print('R-squared: ', r2)
 ```
 ## Section 9: Plot true vs predicted precipitation values
 Plots the true vs predicted precipitation values using Matplotlib.
