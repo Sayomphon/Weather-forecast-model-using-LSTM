@@ -48,6 +48,7 @@ test_data_gen = keras.preprocessing.timeseries_dataset_from_array(
     test_data['Data.Precipitation'].values,
     sequence_length=n_steps,
     batch_size=batch_size
+)
 ```
 ## Define model
 - A simple sequential model is defined using Keras with an input layer, an LSTM layer with 64 units, and a dense output layer.
